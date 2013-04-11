@@ -12,7 +12,9 @@ As aplicações disponibilizadas são:
 * [**oauth2-demo**](docs/oauth2demo.md): utilizando o protocolo [OAuth 2.0](https://developer.ost.pt/docs/guia_do_programador/conceitos_chave/) para obter os dados do utilizador autenticado na plataforma.
 * [**pois-viewer**](poisviewer.md): aplicação simples que se limita a mostrar 50 Pontos de Interesse em Coimbra, usando como API de mapas [Google Maps](https://developers.google.com/maps/).
 
-Qualquer uma destas aplicações serve apenas como *esqueleto* para desenvolver aplicações novas. 
+Qualquer uma destas aplicações serve apenas como *esqueleto* para desenvolver aplicações novas.
+
+**Atenção:** Não tentem submeter as aplicações, tal como estão, na plataforma pois elas não se encontram completas (ou funcionais). Primeiro, devem seguir as seguintes instruções.
 
 ---
 
@@ -53,7 +55,5 @@ Lá poderão submeter o arquivo `WGT` criado anteriormente.
 
 ---
 
-## Ajuda / Como contribuir
-
-Podem usar o [**Fórum de Suporte**](https://support.ost.pt/everyone/) para deixarem as vossas dúvidas e sugestões ou podem contribuir para este projecto fazendo um *fork* no Github (saibam como fazê-lo [na documentação oficial](https://help.github.com/articles/fork-a-repo)).
+ope
 
