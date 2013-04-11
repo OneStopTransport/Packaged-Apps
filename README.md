@@ -48,5 +48,5 @@ Para saberem como submeter a vossa aplicação na plataforma [OST](https://www.o
 ---
 
 ## Ajuda / Como contribuir
--
+
 -Podem usar o [**Fórum de Suporte**](https://support.ost.pt/everyone/) para deixarem as vossas dúvidas e sugestões ou podem contribuir para este projecto fazendo um *fork* no Github (saibam como fazê-lo [na documentação oficial](https://help.github.com/articles/fork-a-repo)).
