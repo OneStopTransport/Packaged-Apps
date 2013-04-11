@@ -10,7 +10,7 @@ As aplicações disponibilizadas são:
 
 * [**leaflet-app**](docs/leafletapp.md): aplicação web que permite desenhar círculos num mapa, usando a biblioteca [Leaflet](http://leafletjs.com/) e obter as paragens de autocarro e os percursos que intersectam os círculos.
 * [**oauth2-demo**](docs/oauth2demo.md): utilizando o protocolo [OAuth 2.0](https://developer.ost.pt/docs/guia_do_programador/conceitos_chave/) para obter os dados do utilizador autenticado na plataforma.
-* [**pois-viewer**](poisviewer.md): aplicação simples que se limita a mostrar 50 Pontos de Interesse em Coimbra, usando como API de mapas [Google Maps](https://developers.google.com/maps/).
+* [**pois-viewer**](docs/poisviewer.md): aplicação simples que se limita a mostrar 50 Pontos de Interesse em Coimbra, usando como API de mapas [Google Maps](https://developers.google.com/maps/).
 
 Qualquer uma destas aplicações serve apenas como *esqueleto* para desenvolver aplicações novas.
 
