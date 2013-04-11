@@ -10,7 +10,7 @@ As aplicações disponibilizadas são:
 
 * [**leaflet-app**](docs/leafletapp.md): aplicação web que permite desenhar círculos num mapa, usando a biblioteca [Leaflet](http://leafletjs.com/) e obter as paragens de autocarro e os percursos que intersectam os círculos.
 * [**oauth2-demo**](docs/oauth2demo.md): utilizando o protocolo [OAuth 2.0](https://developer.ost.pt/docs/guia_do_programador/conceitos_chave/) para obter os dados do utilizador autenticado na plataforma.
-* [**pois-viewer**](poisviewer.md): aplicação simples que se limita a mostrar 50 Pontos de Interesse em Coimbra, usando como API de mapas [Google Maps](https://developers.google.com/maps/).
+* [**pois-viewer**](docs/poisviewer.md): aplicação simples que se limita a mostrar 50 Pontos de Interesse em Coimbra, usando como API de mapas [Google Maps](https://developers.google.com/maps/).
 
 Qualquer uma destas aplicações serve apenas como *esqueleto* para desenvolver aplicações novas.
 
@@ -43,15 +43,7 @@ Considerando que não se pretenda fazer nenhuma alteração a uma dada aplicaç�
 
 ## Submissão na OST
 
-Para submeterem a vossa aplicação na OST, devem primeiro criar uma conta no [portal OST](https://www.ost.pt) e activar a opção `Developer` nas [definições da conta](https://www.ost.pt/user/developer-settings/):
-
-![Activar a opção Developer nas definições da conta](docs/images/developer.png "Activar a opção Developer nas definições da conta")
-
-Para submeter a aplicação, podem fazê-lo acedendo à [página das aplicações](https://www.ost.pt/apps/web), escolhendo o marcador `Developed by you` / `Desenvolvido por si`, carregando no botão de adicionar e escolhendo a opção `Create a New Packaged App`, ou acedendo [directamente aqui](https://www.ost.pt/app/new/packaged).
-
-![Submeter uma nova Packaged App](docs/images/newpackagedapp.png "Submeter uma nova Packaged App")
-
-Lá poderão submeter o arquivo `WGT` criado anteriormente.
+Para saberem como submeter a vossa aplicação na plataforma [OST](https://www.ost.pt), por favor consultem a nossa [*wiki*](https://developer.ost.pt/docs/guia_do_programador/introducao_plataforma/).
 
 ---
 
