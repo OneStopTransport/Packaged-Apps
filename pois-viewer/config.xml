@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets" id="http://widgets.tice.ipn.pt/pois-viewer" fullscreen="true" version="1.0.0">
+
+   <name short="POIs Viewer">Shows 50 POIs from Coimbra on a Google Maps map</name>
+   <name xml:lang="en">Shows 50 POIs from Coimbra on a Google Maps map</name>
+   <name xml:lang="pt">Permite ver 50 pontos de interesse de Coimbra num mapa</name>
+
+   <description>This application shows 50 POIs from Coimbra on a Google Maps map</description>
+   <description xml:lang="en">This application shows 50 POIs from Coimbra on a Google Maps map</description>
+   <description xml:lang="pt">Esta aplicação permite ver 50 pontos de interesse de Coimbra num mapa</description>
+
+   <content src="index.html" />
+   <icon src="pois-viewer.jpg" />
+   <author>Ricardo Vitorino</author>
+</widget>
