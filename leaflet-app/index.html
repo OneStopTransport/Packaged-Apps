@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Leaflet App</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="leaflet.css" />
+	<style type="text/css">
+        html { height: 100% }
+        body { height: 100%; margin: 0; padding: 0 }
+    	#map { height: 100%; width:100% }
+    </style>
+</head>
+<body>
+	<div id="map"></div>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script src="leaflet.js"></script>
+	<script>
+
+	    // CLOUDMADE SETTINGS
+		var cloudmade_url         = 'http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png';
+		var cloudmade_attribution = 'Map data &copy; 2011 OpenStreetMap contributors, Imagery &copy; 2011 CloudMade';
+		var cloudmade             = new L.TileLayer( cloudmade_url, {
+		    maxZoom:     18,
+		    attribution: cloudmade_attribution
+		});
+
+        // LAYERS
+        var stops_layer    = new L.LayerGroup();
+        var shapes_layer   = new L.LayerGroup();
+        var layers_control = new L.Control.Layers({}, {
+            "bus stops":   stops_layer,
+            "trip shapes": shapes_layer,
+        });
+
+        // ICONS
+        var drag_circle_icon = get_drag_icon();
+        var bus_stop_icon    = get_stop_icon();
+
+        // MAP
+        var map = new L.Map('map', {
+            //center: new L.LatLng(40.722446, -73.986641),
+            center: new L.LatLng(40.222, -8.431),
+            zoom:   14,
+            layers: [ stops_layer ],
+            doubleClickZoom: false,
+        });
+
+        // MAP EVENTS
+        map.on( 'dblclick', function (e){
+           var layer = create_circle( e.latlng );
+           map.addLayer( layer.circle );
+           map.addLayer( layer.marker );
+       	   stops_layer.addLayer( layer.stops_layer );
+       	   shapes_layer.addLayer( layer.shapes_layer );
+        });
+
+        // ADD LAYERS TO MAP
+		map.addLayer( stops_layer );
+		map.addLayer( shapes_layer );
+		map.addLayer( cloudmade );
+        map.addControl( layers_control );
+
+
+        //FUNCTIONS
+
+        function get_stop_icon(){
+            var Bus_Stop_Icon = L.Icon.extend({
+                options: {
+                    iconUrl:    'https://www.unf.edu/map/images/markers/busIcon.png',
+                    shadowUrl:  null,
+                    iconSize:   new L.Point( 20, 20 ),
+                    iconAnchor: new L.Point( 10, 10 ),
+                }
+            });
+            return new Bus_Stop_Icon();
+        };
+
+        function get_drag_icon(){
+            var Drag_Circle_Icon = L.Icon.extend({
+                options: {
+                   iconUrl:    'http://www.chiavarichairs.com/images/icon-circle-black.png',
+                   shadowUrl:  null,
+                   iconSize:   new L.Point( 20, 20 ),
+                   iconAnchor: new L.Point( 10, 10 ),
+                }
+            });
+
+            return new Drag_Circle_Icon();
+        };
+
+		function get_radius(marker,  center){
+		    return marker.getLatLng().distanceTo( center );
+		};
+
+		function create_circle( center ){
+		    var marker = get_drag_marker( center );
+    		var circle = get_circle( center, marker );
+
+    		var circle_stops_layer = new L.LayerGroup();
+    		var circle_shapes_layer = new L.LayerGroup();
+
+    		marker.on( 'drag', function (e){
+    		    circle.setRadius( get_radius(marker, center) );
+    		});
+
+    		marker.on( 'dragend', function (e){
+    		    var params = {
+                    key:    'YOUR_OST_KEY',
+                    center: center.lng+','+center.lat,
+                    range:  circle._mRadius/1000,
+                    max:    25,
+                };
+    		    request_and_create_stops( params, circle_stops_layer );
+    		    request_and_create_shapes( params, circle_shapes_layer );
+    		});
+
+    		marker.on( 'dblclick', function (e){
+    		   map.removeLayer( marker );
+    		   map.removeLayer( circle );
+    		   stops_layer.removeLayer( circle_stops_layer );
+    		   shapes_layer.removeLayer( circle_shapes_layer );
+    		});
+
+    		return {
+    		    circle:       circle,
+    		    marker:       marker,
+    		    stops_layer:  circle_stops_layer,
+    		    shapes_layer: circle_shapes_layer,
+    		};
+		};
+
+		function get_drag_marker( position ){
+		    var location = new L.LatLng( position.lat+0.0015, position.lng+0.0015 );
+    	    return new L.Marker( location, {
+    	        draggable: true,
+    	        icon:      drag_circle_icon,
+    	    });
+		};
+
+		function get_circle( center, drag_marker ){
+		    return new L.Circle( center, get_radius(drag_marker, center), {
+    		    color:   '#000000',
+    		    weight:  1,
+    		    opacity: 0.7
+    		});
+		};
+
+		function request_and_create_stops(params, layer){
+		    var point, latlng, bus_stop;
+		    $.ajax({
+                url:      'https://api.ost.pt/stops',
+                dataType: 'jsonp',
+                data:     params,
+                success:  function( response ) {
+                    var data = $.parseJSON( JSON.stringify( response.Objects ) );
+        		    layer.clearLayers();
+        		    for (var i in data) {
+        		        //point = $.parseJSON( data[i].point );
+        		        point    = data[i].point;
+        		        latlng   = new L.LatLng( point.coordinates[1], point.coordinates[0] );
+                	    bus_stop = new L.Marker( latlng, {
+                	        draggable: false,
+                	        icon:      bus_stop_icon,
+                	    });
+                	    bus_stop.bindPopup( "<b>I'm a bus stop</b><br />" + data[i].stop_name );
+        		        layer.addLayer( bus_stop );
+        		    };
+                }
+            });
+		};
+
+        function request_and_create_shapes(params, layer){
+            var coords, line, line_string;
+		    $.ajax({
+                url:      'https://api.ost.pt/shapes',
+                dataType: 'jsonp',
+                data:     params,
+                success:  function( response ) {
+                    var data = $.parseJSON( JSON.stringify( response.Objects ) );
+                    layer.clearLayers();
+                    for (var i in data) {
+                        $.ajax({
+                            url:      'https://api.ost.pt/shapes/'+data[i].id +'',
+                            dataType: 'jsonp',
+                            data:     params,
+                            success:  function( response ) {
+                                line_string = response.line_string;
+                                coords      = line_string.coordinates;
+                                line        = [];
+                                for (var j in coords) {
+                                    line[j] = new L.LatLng( coords[j][1], coords[j][0] );
+                                }
+                                layer.addLayer( new L.Polyline( line ) );
+                            }
+                        });
+
+        		    };
+                }
+            });
+		};
+
+	</script>
+</body>
+</html>

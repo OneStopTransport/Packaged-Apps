@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets" id="http://widgets.tice.ipn.pt/leaflet-app" fullscreen="true" version="1.0.0">
+   <name short="Leaflet">Draw circles in order to get Stops and Shapes within radius.</name>
+   <description>The application allows the user to draw circles in order to get Stops and Shapes within the radius drawn.</description>
+   <content src="index.html" />
+   <icon src="icon.png" />
+   <author>Diogo Laginha</author>
+</widget>
