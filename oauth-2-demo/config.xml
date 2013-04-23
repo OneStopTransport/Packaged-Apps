@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets" id="http://widgets.tice.ipn.pt/oauth-2-demo-dev-bito" version="1.0.0">
+   <name>OAuth 2.0 Demo</name>
+   <content src="index.html" />
+</widget>
